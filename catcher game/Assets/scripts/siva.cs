@@ -10,16 +10,11 @@ public class siva : MonoBehaviour {
 	void Start () {
 		Debug.Log ("I just go started");
 
-		//Get the components
-		//Rigidbody2D rb = GetComponent<Rigidbody2D> ();
-		//rb.mass = 10;
+		//Get the ScreenWidth
 
-		// Add a vertical force up
-		//rb.AddForce ( Vector2.up * 10f);
+		//Get the Object Width
 
-		//Get a reference to the ground
-		//Transform t = ground.transform;
-		//Debug.Log (" Transform of the ground is " + t.position.x + t.position.y + t.position.z);
+		//Calculate the maximum bounds within which the object can start dropping
 
 	}
 	
