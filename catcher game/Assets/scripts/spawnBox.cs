@@ -17,27 +17,31 @@ public class spawnBox : MonoBehaviour {
 	public Text scoreText;
 	public Sprite[] sprites;
 	private string[] nameSplitter = {"gem","1"};
+	public Hashtable spriteWidth = new Hashtable();
+	private Vector3 wCo ; 
 
 
 	// Use this for initialization
 	void Start () {
 		Debug.Log ( "Spawn Box Started" );
 		cam = Camera.main;
-
-
 		// Call this function again if the catcher object changes.
 		getCatcherWidth ();
 
+		// Build the spriteWidth hash table that contains all sprites along with their width.
+		// This ensures that no runtime calculations are required. 
+		for (int i = 0; i < sprites.Length; i ++) 
+		{
+			spriteWidth.Add (sprites[i],sprites[i].bounds.extents.x);
+		}
+
+		wCo = cam.ScreenToWorldPoint (new Vector3(Screen.width, Screen.height, 0.0f));
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
 		//keyboardControl ();
 		mouseControl ();
-
-
-
 	}
 
 	void FixedUpdate()
@@ -47,10 +51,12 @@ public class spawnBox : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		random = Random.Range ( leftEdge , rightEdge);
-		GameObject go = coll.gameObject;
-		GameObject goD = Instantiate (go, new Vector3 (random, 7f, 0f), Quaternion.identity) as GameObject;
+
 		Sprite sprite = sprites [Random.Range (1, 5)];
+		float[] boundary = getScreenToWorld (sprite);
+		random = Random.Range ( boundary[0] , boundary[1]);
+		GameObject go = coll.gameObject;
+		GameObject goD = Instantiate (go, new Vector3 (random, wCo.y,0.0f ), Quaternion.identity) as GameObject;
 		goD.GetComponent<SpriteRenderer> ().sprite = sprite;
 		goD.name = sprite.name;
 		Destroy (go);
@@ -73,16 +79,17 @@ public class spawnBox : MonoBehaviour {
 
 		score += 1 * scoreMultiplier;
 		scoreText.text = "Score : " + score;
-
-
-
-
-
 	
 	}
 
 	void getCatcherWidth(){
 		this.catcherWidth =  renderer.bounds.extents.x;
+	}
+
+	private float getCatcherWidth(Sprite sprite){
+
+		return sprite.bounds.extents.x;
+
 	}
 
 	void keyboardControl()
@@ -139,6 +146,19 @@ public class spawnBox : MonoBehaviour {
 
 
 	}
+
+	private float[] getScreenToWorld ( Sprite sprite )
+	{
+		Vector2 screenCo = new Vector2 (Screen.width, Screen.height);
+		Vector2 worldCo = cam.ScreenToWorldPoint (screenCo);
+		float spriteWidth = getCatcherWidth (sprite);
+		float clampWidth = (worldCo.x - spriteWidth) / 2;
+		float[] boundary = { -clampWidth, clampWidth };
+		//Debug.Break();
+		print ("boundary = " + boundary[0] + " " + boundary[1]);
+		return boundary;
+	}
+
 
 
 }
