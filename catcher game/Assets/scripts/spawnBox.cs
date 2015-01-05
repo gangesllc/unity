@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+//using System.Linq;
+//using System;
+using UnityEditor;
 
 public class spawnBox : MonoBehaviour {
 
@@ -10,14 +13,17 @@ public class spawnBox : MonoBehaviour {
 	public Camera cam;
 	public float catcherYPosition;
 	private float catcherWidth;
-	private int score;
+	public int score; // Used to start at a big score for testing
 	public Text scoreText;
+	public Sprite[] sprites;
+	private string[] nameSplitter = {"gem","1"};
 
 
 	// Use this for initialization
 	void Start () {
 		Debug.Log ( "Spawn Box Started" );
 		cam = Camera.main;
+
 
 		// Call this function again if the catcher object changes.
 		getCatcherWidth ();
@@ -41,17 +47,36 @@ public class spawnBox : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll)
 	{
+		random = Random.Range ( leftEdge , rightEdge);
+		GameObject go = coll.gameObject;
+		GameObject goD = Instantiate (go, new Vector3 (random, 7f, 0f), Quaternion.identity) as GameObject;
+		Sprite sprite = sprites [Random.Range (1, 5)];
+		goD.GetComponent<SpriteRenderer> ().sprite = sprite;
+		goD.name = sprite.name;
+		Destroy (go);
 
-		GameObject go;
-		score += 1;
+
+
+		string name;
+		int scoreMultiplier;
+		//string[] spriteNameAndLevel = sprite.name.Split ('_');
+
+		// Get the action based on the name of the falling object
+		name = go.name;
+		// Its a gem. Increase points based on gem number
+		if (name.StartsWith ("gem")) 
+		{
+			nameSplitter = name.Split('_');
+		}
+
+		scoreMultiplier = int.Parse (nameSplitter [1]);
+
+		score += 1 * scoreMultiplier;
 		scoreText.text = "Score : " + score;
 
-		//GameObject goD;
-		go = coll.gameObject;
-		random = Random.Range ( leftEdge , rightEdge);
-		//goD = Instantiate (go, new Vector3(random,7f,0f), Quaternion.identity) as GameObject;
-		Instantiate (go, new Vector3 (random, 7f, 0f), Quaternion.identity);
-		Destroy (go);
+
+
+
 
 	
 	}
@@ -114,5 +139,6 @@ public class spawnBox : MonoBehaviour {
 
 
 	}
+
 
 }
