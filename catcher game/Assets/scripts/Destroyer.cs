@@ -1,48 +1,50 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
-public class Destroyer : MonoBehaviour {
+public class Destroyer : MonoBehaviour
+{
+	public bool destroyOnAwake;			// Whether or not this gameobject should destroyed after a delay, on Awake.
+	public float awakeDestroyDelay;		// The delay for destroying it on Awake.
+	public bool findChild = false;				// Find a child game object and delete it
+	public string namedChild;			// Name the child object in Inspector
 
 
-	public Text lifesText;
-	private int lifes;
-	public float leftEdge;
-	public float rightEdge;
-	float random;
-
-	// Use this for initialization
-	void Start () {
-		Debug.Log ( "Destroyer Started" );
-		lifesText.text = "AAAAA";
-		lifes = lifesText.text.Length;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	}
-
-	void OnCollisionEnter2D(Collision2D coll)
+	void Awake ()
 	{
-		GameObject go;
-		go = coll.gameObject;
-		random = Random.Range ( leftEdge , rightEdge);
-		//goD = Instantiate (go, new Vector3(random,7f,0f), Quaternion.identity) as GameObject;
-		Instantiate (go, new Vector3 (random, 7f, 0f), Quaternion.identity);
-		if (lifes == 0) {
-			Application.LoadLevel ("GameOver");
-		} else {
-			lifes -= 1;
-			print ("lifes = " + lifes);
-			lifesText.text = lifesText.text.Remove(lifes);
+		// If the gameobject should be destroyed on awake,
+		if(destroyOnAwake)
+		{
+			if(findChild)
+			{
+				Destroy (transform.Find(namedChild).gameObject);
+			}
+			else
+			{
+				// ... destroy the gameobject after the delay.
+				Destroy(gameObject, awakeDestroyDelay);
+			}
+
 		}
-		Destroy (go);
 
+	}
 
-		// Get the lifes
-		lifes = lifesText.text.Length;
+	void DestroyChildGameObject ()
+	{
+		// Destroy this child gameobject, this can be called from an Animation Event.
+		if(transform.Find(namedChild).gameObject != null)
+			Destroy (transform.Find(namedChild).gameObject);
+	}
 
+	void DisableChildGameObject ()
+	{
+		// Destroy this child gameobject, this can be called from an Animation Event.
+		if(transform.Find(namedChild).gameObject.activeSelf == true)
+			transform.Find(namedChild).gameObject.SetActive(false);
+	}
 
+	void DestroyGameObject ()
+	{
+		// Destroy this gameobject, this can be called from an Animation Event.
+		Destroy (gameObject);
 	}
 }

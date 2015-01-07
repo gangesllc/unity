@@ -49,6 +49,8 @@
      <Compile Include="Assets\scripts\Destroyer.cs" />
      <Compile Include="Assets\scripts\applicationControl.cs" />
      <Compile Include="Assets\scripts\changeLevel.cs" />
+     <Compile Include="Assets\scripts\ignoreCollision.cs" />
+     <Compile Include="Assets\scripts\moveCloud.cs" />
      <Compile Include="Assets\scripts\moveClouds.cs" />
      <Compile Include="Assets\scripts\siva.cs" />
      <Compile Include="Assets\scripts\spawnBox.cs" />

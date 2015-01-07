@@ -1,12 +1,11 @@
 fileFormatVersion: 2
-guid: b7b1982bc525e4ec0b29b9124ec8fc84
+guid: 64d1ad6c7af05418e9bf973f4e715b49
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Clouds_H
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -26,7 +25,7 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-    aniso: 1
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
