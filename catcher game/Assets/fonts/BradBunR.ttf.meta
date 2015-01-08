@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: b251117754f6b104382f7c6d4e8d6411
+=======
+guid: 59a5800f69f764272a193320f2b229b2
+>>>>>>> Stashed changes
 TrueTypeFontImporter:
   serializedVersion: 2
   fontSize: 16

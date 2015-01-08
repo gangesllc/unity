@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: 152efaf04e0bb114cb8e7c4ffe70e638
+=======
+guid: 5a11b51a82aee49ebb345527cf40644e
+>>>>>>> Stashed changes
 MonoAssemblyImporter:
   serializedVersion: 1
   iconMap: {}

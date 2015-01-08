@@ -1,11 +1,19 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: f13c0e13c90a14348967c6d64137999e
+=======
+guid: f27a84c9104434a008b15db8e2a8535b
+>>>>>>> Stashed changes
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
+<<<<<<< Updated upstream
     enableMipMap: 1
+=======
+    enableMipMap: 0
+>>>>>>> Stashed changes
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -25,16 +33,26 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
+<<<<<<< Updated upstream
     aniso: -1
     mipBias: -1
     wrapMode: -1
+=======
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+>>>>>>> Stashed changes
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
+<<<<<<< Updated upstream
   alignment: 0
+=======
+  alignment: 7
+>>>>>>> Stashed changes
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
@@ -42,6 +60,20 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
+<<<<<<< Updated upstream
     sprites: []
+=======
+    sprites:
+    - name: prop_parachute
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 437
+        height: 415
+      alignment: 7
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+>>>>>>> Stashed changes
   spritePackingTag: 
   userData: 

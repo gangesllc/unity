@@ -1,11 +1,19 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: 231a02bf31bf1634293eeb5bca88a8fe
+=======
+guid: c0d7bb19e6d7b400483d85741b495289
+>>>>>>> Stashed changes
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
+<<<<<<< Updated upstream
     enableMipMap: 1
+=======
+    enableMipMap: 0
+>>>>>>> Stashed changes
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -25,9 +33,15 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
+<<<<<<< Updated upstream
     aniso: -1
     mipBias: -1
     wrapMode: -1
+=======
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+>>>>>>> Stashed changes
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -42,6 +56,20 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
+<<<<<<< Updated upstream
     sprites: []
+=======
+    sprites:
+    - name: Circle
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+>>>>>>> Stashed changes
   spritePackingTag: 
   userData: 

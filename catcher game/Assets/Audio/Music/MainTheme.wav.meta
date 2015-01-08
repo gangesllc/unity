@@ -1,4 +1,5 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
 guid: a2ad0bfc3a36c3c47a1204fc2bacab4e
 AudioImporter:
   serializedVersion: 4
@@ -6,6 +7,15 @@ AudioImporter:
   quality: -1
   stream: 1
   3D: 1
+=======
+guid: 317552566dd1ff9488d5d34e0c3ba4f4
+AudioImporter:
+  serializedVersion: 4
+  format: -1
+  quality: .5
+  stream: 1
+  3D: 0
+>>>>>>> Stashed changes
   forceToMono: 0
   useHardware: 0
   loopable: 0
