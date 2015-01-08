@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /*************************************************************************
  * Clouds move from the left to the right. At random locations on the left
@@ -12,44 +13,72 @@ using System.Collections;
 public class moveClouds : MonoBehaviour {
 
 	public Sprite spriteCloud;
-	public Camera cam;
+	public int spriteSizeVariations;
+	private Camera cam;
 
-	private Vector2 spriteBoundariesX1;
-	private Vector2 spriteBoundariesX2;
+	private Vector2[] spriteBoundaries;
+	private List <Vector2> sb = new List <Vector2> () ;
 	private GameObject cloudVector;
 
 	// Use this for initialization
 	void Start () {
-		// find a random location on the screen height
-		spriteBoundariesX1 = getBoundaries( spriteCloud, 1 );
-		spriteBoundariesX2 = getBoundaries( spriteCloud, 2 );
 
-		//yield new WaitForSeconds ( 4 ) ; 
+		//find main camera reference
+		cam = Camera.main;
+
+		// Initialize the spriteBoundaries Vector based on the number of variations proposed
+		spriteBoundaries = new Vector2[spriteSizeVariations];
+//
+//		spriteBoundaries [0] = new Vector2 (0.0f, 0.0f);
+//		spriteBoundaries [1] = new Vector2 (0.0f, 0.0f);
+
+		// find a random location on the screen height
+		for (int i = 0; i < spriteSizeVariations; i ++)
+		{
+			spriteBoundaries[i] = getBoundaries (spriteCloud, i );
+		}
+		StartCoroutine ( spawnClouds());
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		StartCoroutine ( spawnClouds());
 
-	
 	}
 
 	IEnumerator spawnClouds()
 	{
-		yield return new WaitForSeconds(10.0f);
-        GameObject cloud  = new GameObject ( "cloud" );
-		cloud.AddComponent("SpriteRenderer");
-		cloud.GetComponent <SpriteRenderer>().sprite = spriteCloud ;
-		cloud.transform.position = new Vector3 ( spriteBoundariesX1.y,0.0f,0.0f );
-		cloud.AddComponent("moveCloud");
+		while (true) {
 
-		print ( "Time before slee = " + Time.time );
-	
+			// Select a random sprite cloud size to create
+			int cloudSize = Random.Range (1, spriteSizeVariations );
+			Vector2 spriteBoundary = spriteBoundaries [cloudSize];
 
-		print ( "Time after slee = " + Time.time );
+			// Start with a new game object
+			GameObject cloud = new GameObject ("cloud");
+
+			// Add sprite renderer component to the empty game object
+			cloud.AddComponent ("SpriteRenderer");
+
+			//Make it a cloud
+			cloud.GetComponent <SpriteRenderer> ().sprite = spriteCloud;
+
+			// Position it at a random vertical location on the left edge..
+			// Add 20 WCs to make the clouds start way out to the left so that it appears to slowly come 
+			// from the left and disappear to the right
+			cloud.transform.position = new Vector3 (-(spriteBoundary.x+40), Random.Range ( -spriteBoundary.y, spriteBoundary.y), 0.0f);
+
+			// scale the cloud to the correct size
+			cloud.transform.localScale = new Vector3(cloudSize,cloudSize,0);
+
+			// Attach a script to the cloud game object so that it can independently move
+			cloud.AddComponent ("moveCloud");
+
+			// Yield for 3 seconds before creating a new cloud
+			yield return new WaitForSeconds (15.0f);
+		}
     }
-
 
 	/*************************************************************
 	 * Generic function that returns the boundaries in world coordinates
@@ -67,7 +96,7 @@ public class moveClouds : MonoBehaviour {
 			clampWidth = (worldCo.x - sprite.bounds.extents.x * multiplier) / 2;
 			boundary.x = clampWidth;
 
-			clampHeight = (worldCo.x - sprite.bounds.extents.y * multiplier) / 2;
+			clampHeight = (worldCo.y - sprite.bounds.extents.y * multiplier) / 2;
 			boundary.y = clampHeight;
 
 		return boundary;

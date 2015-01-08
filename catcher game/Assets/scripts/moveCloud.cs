@@ -12,4 +12,8 @@ public class moveCloud : MonoBehaviour {
 	void Update () {
 		transform.Translate (Vector3.right * Time.deltaTime);
 	}
+
+	void OnBecameInvisible() {
+
+	}
 }
