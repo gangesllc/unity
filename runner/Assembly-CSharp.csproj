@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\scripts\generateTerrain.cs" />
+     <Compile Include="Assets\scripts\terrainObject.cs" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\prototype_textures\readme.txt" />
  <Reference Include="UnityEngine.UI">
