@@ -12,7 +12,10 @@ public class path : MonoBehaviour {
 	void Start () {
 		Debug.Log ("start of path called");
 		root = new GameObject ();	
-		root.transform.position = new Vector3 (0, 0, 0);
+		root.transform.position = new Vector3 (0, 0, 20);
+		root.name = "root";
+		root.AddComponent<MeshRenderer>();
+		root.AddComponent<MeshFilter>();
 		GameObject go = new GameObject ();
 		/* Get a list of all game objects that will constitute the path. The prefabs ( game objects ) that will 
 		 * make up the path are initialized there
@@ -24,50 +27,40 @@ public class path : MonoBehaviour {
 			print ("game objects are " + i + " " + names[i]);
 		}
 
-		InvokeRepeating( "generatePath" , 0f,1f);
-
-		// Print all the names
-		//print ("Game objects in the pool are " + names.ToString);
-		// Testing
-
-		//get a cube
-		//go = objectPooler.current.get ( 
-
-//		go1 = Instantiate (go, new Vector3(1,1,1), Quaternion.identity) as GameObject;	
-//		go2 = Instantiate (go,new Vector3(1,1,6), Quaternion.identity) as GameObject;
-//		go1.transform.parent = gameObject.transform;
-//		go2.transform.parent = gameObject.transform;
-//
-//		InvokeRepeating ("generatePath",0,1f);
-
-		//print ( "new object is " + objectPooler.self.getObject("cube"));
-
-//		GameObject str = objectPooler.current.get ("Cube");
-//		print ("Game object returned is " + str.name);
-//
-//		print ("putting the game object back" + str.name);
-//		objectPooler.current.put (str);
-
+		InvokeRepeating( "generatePath" , 0f,.2f);
+	
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-//		for (int i = 0 ; i < gameObject.transform.childCount; i++)
-//		{
-//			Transform[] ts = gameObject.GetComponentsInChildren<Transform> ();
-//			ts[i].Translate(Vector3.back * Time.deltaTime * pathSpeed);
-//		}
-//		//go1.transform.Translate (Vector3.back * Time.deltaTime * pathSpeed);
-		root.transform.Translate (Vector3.back * Time.deltaTime * 5);
-//		
+
+		/* root.transform returns all the first level children. Don't use getComponentsInChildren here. It will return
+		 * the entire hierarchy which we don't require
+		 */
+		foreach ( Transform children in root.transform )
+		{
+			//print ("children are " + children.position);
+
+
+//			if (children.renderer.isVisible != true)
+//			{
+//				objectPooler.current.put ( children.gameObject );
+//			}
+//			else 
+			{
+				print ( children.name );
+				children.transform.Translate ( Vector3.back * Time.deltaTime * 10 ) ;
+			}
+		}
 	}
 
 	void generatePath()
 	{
 //		GameObject go1 = Instantiate (go, new Vector3(1,1,1), Quaternion.identity) as GameObject;	
 //		go1.transform.parent = gameObject.transform;
-		string name = names [Random.Range (0,names.Count-1)];
+		pathDestroyer  pd;	
+		string name = names [Random.Range (0,names.Count)];
 		print ("object being created is " + name);
 		GameObject go = objectPooler.current.get (name);
 		if (go == null) 
@@ -77,7 +70,15 @@ public class path : MonoBehaviour {
 		else
 		{
 			go.SetActive (true);
+			pd = go.GetComponent<pathDestroyer>();
+			if ( pd == null )
+			{
+				print ( "no path destroyer object attached. doing it now ");
+				go.AddComponent("pathDestroyer");
+            }
 			go.transform.parent = root.transform;
+			go.transform.localPosition = new Vector3(0,0,0 );
+			//print ("new object created is at " + go.transform.position);
 		}
 		
 		

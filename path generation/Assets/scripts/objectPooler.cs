@@ -30,7 +30,7 @@ public class objectPooler : MonoBehaviour {
 	 * the "key" is the prefab or the game object name. The corresponding list
 	 * would contain a pool objects corresponding to that game object name
 	 */
-	private Dictionary <string,List<GameObject>> pool  ;
+	public Dictionary <string,List<GameObject>> pool  ;
 
 
 
@@ -56,6 +56,10 @@ public class objectPooler : MonoBehaviour {
 			{
 				GameObject obj = Instantiate(go[i]) as GameObject;
 				obj.SetActive (false );
+				/* This ensures that the clone will have the same name as the object it is clong
+				 * Otherwise it will get the name followed by "(clone)" by default
+				 */
+				obj.name = go[i].name;
 				list.Add (obj);
 			}
 			pool.Add (go[i].name , list);
@@ -68,7 +72,7 @@ public class objectPooler : MonoBehaviour {
 	void Start () {
 
 
-
+		print ("size of pool is " + pool.Count);
 	}
 
 	/* Get a list of game object names this pooler object contains
@@ -121,6 +125,10 @@ public class objectPooler : MonoBehaviour {
 					// Pick the last object int he list as a source to clone
 					GameObject obj = Instantiate(list[list.Count-1]) as GameObject;
 					obj.SetActive (false );
+					/* This ensures that the clone will have the same name as the object it is clong
+				 	 * Otherwise it will get the name followed by "(clone)" by default
+				     */
+					obj.name = list[list.Count-1].name;
 					list.Add (obj);
 					return obj;
 				}
